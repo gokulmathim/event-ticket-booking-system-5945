@@ -29,6 +29,24 @@ CREATE TABLE IF NOT EXISTS tickets (
     FOREIGN KEY (event_id) REFERENCES events(id)
 );
 
+-- Movies table
+CREATE TABLE IF NOT EXISTS movies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    release_date DATE,
+    duration INT, -- duration in minutes
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Theatres table
+CREATE TABLE IF NOT EXISTS theatres (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(120) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
