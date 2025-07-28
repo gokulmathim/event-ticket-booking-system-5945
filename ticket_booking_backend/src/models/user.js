@@ -16,7 +16,7 @@ class UserModel {
       'INSERT INTO users (email, password, name) VALUES (?, ?, ?)',
       [email, passwordHash, name]
     );
-    return { id: result.insertId, email, name };
+    return { id: result.insertId, email, name, password: passwordHash };
   }
 
   // PUBLIC_INTERFACE

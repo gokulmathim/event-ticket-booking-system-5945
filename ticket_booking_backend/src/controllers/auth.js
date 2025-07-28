@@ -10,7 +10,9 @@ class AuthController {
       const { email, password, name } = req.body;
       const user = await AuthService.register({ email, password, name });
       const token = AuthService.generateToken(user);
-      res.status(201).json({ user, token });
+      // Remove password from response for security
+      const { password: _, ...safeUser } = user;
+      res.status(201).json({ user: safeUser, token });
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
@@ -22,7 +24,9 @@ class AuthController {
       const { email, password } = req.body;
       const user = await AuthService.authenticate({ email, password });
       const token = AuthService.generateToken(user);
-      res.status(200).json({ user, token });
+      // Remove password from response for security
+      const { password: _, ...safeUser } = user;
+      res.status(200).json({ user: safeUser, token });
     } catch (err) {
       res.status(401).json({ message: err.message });
     }

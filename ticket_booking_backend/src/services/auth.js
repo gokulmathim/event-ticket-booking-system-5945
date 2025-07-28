@@ -21,9 +21,10 @@ class AuthService {
   static async authenticate({ email, password }) {
     const user = await UserModel.findByEmail(email);
     if (!user) throw new Error('Invalid email or password');
+    // user.password exists when queried directly for login; for output (e.g., profile), select explicitly which fields
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) throw new Error('Invalid email or password');
-    return user;
+    return { id: user.id, email: user.email, name: user.name }; // Don't return hashed password
   }
 
   // PUBLIC_INTERFACE
